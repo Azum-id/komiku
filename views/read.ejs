@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Baca Manga | <%= chapterInfo["Judul"] || "Error" %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+        }
+        .manga-img {
+            width: 100%;
+            display: block;
+        }
+        .manga-container {
+            line-height: 0;
+        }
+        .info-panel {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .info-title {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 12px;
+        }
+        .info-label {
+            color: #999;
+            font-weight: 500;
+        }
+        .info-value {
+            color: #fff;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .nav-btn {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            color: #ccc;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background-color: #333;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Scroll up button styling */
+        #scrollUpBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            z-index: 999;
+            backdrop-filter: blur(8px);
+            background-color: rgba(30, 30, 30, 0.6);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border: 1px solid #444;
+        }
+
+        #scrollUpBtn:hover {
+            background-color: rgba(60, 60, 60, 0.8);
+            transform: scale(1.1);
+            color: white;
+        }
+
+        img {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-panel">
+            <h1 class="info-title">Informasi Chapter</h1>
+            <div class="info-grid">
+                <div class="info-label">Judul</div>
+                <div class="info-value"><%= chapterInfo["Judul"] || "Tidak Tersedia" %></div>
+                <div class="info-label">Tanggal Rilis</div>
+                <div class="info-value"><%= chapterInfo["Tanggal Rilis"] || "Tidak Tersedia" %></div>
+                <div class="info-label">Arah Baca</div>
+                <div class="info-value"><%= chapterInfo["Arah Baca"] || "Tidak Tersedia" %></div>
+            </div>
+        </div>
+
+        <div class="manga-container">
+            <% images.forEach(function(img) { %>
+                <img src="/proxy?img=<%= encodeURIComponent(img) %>" class="manga-img" loading="lazy">
+            <% }); %>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="nav-buttons">
+            <% if (prevChapter) { %>
+                <button onclick="window.location.href='/read?url=<%= encodeURIComponent(prevChapter) %>'" class="nav-btn"><i class="fas fa-arrow-left"></i> Prev</button>
+            <% } %>
+            <button onclick="window.location.href='/'" class="nav-btn"><i class="fas fa-home"></i> Home</button>
+            <% if (nextChapter) { %>
+                <button onclick="window.location.href='/read?url=<%= encodeURIComponent(nextChapter) %>'" class="nav-btn">Next <i class="fas fa-arrow-right"></i></button>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Scroll Up Button -->
+    <button id="scrollUpBtn" class="nav-btn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scroll Up Script -->
+    <script>
+        const scrollUpBtn = document.getElementById("scrollUpBtn");
+
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const bodyHeight = document.body.offsetHeight;
+
+            // Muncul kalau scroll > 300 dan belum mentok ke bawah
+            if (scrollY > 300 && scrollY + windowHeight < bodyHeight - 100) {
+                scrollUpBtn.style.display = "flex";
+            } else {
+                scrollUpBtn.style.display = "none";
+            }
+        });
+
+        scrollUpBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
