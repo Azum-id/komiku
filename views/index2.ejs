@@ -27,11 +27,6 @@
                 border-radius: 8px;
                 color: white;
             }
-            .card-header {
-                background-color: #2a2a2a;
-                border-bottom: 1px solid #333;
-                padding: 15px;
-            }
             .card-body h5 {
                 font-size: 18px;
                 font-weight: bold;
@@ -52,7 +47,7 @@
                 font-size: 14px;
                 border-radius: 4px;
                 transition: 0.3s;
-                width: 48%; /* Adjust for button groups */
+                width: 48%;
             }
             .btn-custom:hover {
                 background-color: #555;
@@ -67,126 +62,71 @@
                 margin-top: 20px;
                 max-height: 500px;
                 overflow-y: auto;
-                /* display: none; */ /* Handled by Bootstrap tabs */
+                display: none; /* Sembunyikan sementara */
             }
             .separator {
                 margin-top: 20px;
                 border-top: 1px solid #333;
                 display: none; /* Sembunyikan separator sampai ada hasil */
             }
-            .nav-tabs {
-                border-bottom: 1px solid #333;
-                margin-bottom: 20px;
-            }
-            .nav-tabs .nav-link {
-                color: #ccc;
-                border: 1px solid transparent;
-                border-top-left-radius: 0.25rem;
-                border-top-right-radius: 0.25rem;
-            }
-            .nav-tabs .nav-link:hover {
-                border-color: #eee #eee #333;
-                background-color: #2a2a2a;
-                color: white;
-            }
-            .nav-tabs .nav-link.active {
-                color: white;
-                background-color: #1f1f1f;
-                border-color: #333 #333 #1f1f1f;
-            }
-            .tab-content {
-                padding-top: 10px;
-            }
-            .form-control-lg {
-                background-color: #2a2a2a;
-                border: 1px solid #333;
-                color: white;
-            }
-            .form-control-lg::placeholder {
-                color: #999;
-            }
         </style>
     </head>
     <body>
         <div class="container">
             <h1 class="text-center mb-5 fw-bold">Scraper Manga Komiku</h1>
-
-            <div class="card p-0">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button
-                                class="nav-link active"
-                                id="url-tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#url-form"
-                                type="button"
-                                role="tab"
-                                aria-controls="url-form"
-                                aria-selected="true"
-                            >
-                                <i class="fa fa-link"></i> By URL
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button
-                                class="nav-link"
-                                id="search-tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#search-form"
-                                type="button"
-                                role="tab"
-                                aria-controls="search-form"
-                                aria-selected="false"
-                            >
-                                <i class="fa fa-search"></i> By Name
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content" id="myTabContent">
-                        <div
-                            class="tab-pane fade show active"
-                            id="url-form"
-                            role="tabpanel"
-                            aria-labelledby="url-tab"
-                        >
-                            <h4 class="text-center mb-4">Masukkan URL Chapter</h4>
+            <div class="row g-4">
+                <!-- Card 1: Masukkan URL -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Masukkan URL Chapter</h4>
+                        </div>
+                        <div class="card-body">
                             <form method="GET" action="/read">
                                 <div class="mb-3">
                                     <input
                                         type="text"
                                         name="url"
                                         class="form-control form-control-lg text-center"
-                                        placeholder="E.g., https://komiku.org/ch/..."
+                                        placeholder="Masukkan URL..."
                                         required
                                     />
                                 </div>
-                                <button type="submit" class="btn btn-custom w-100">
-                                    <i class="fa fa-arrow-right"></i> Ambil Manga
+
+                                <!-- Tombol Ambil Manga (Go) -->
+                                <button
+                                    type="submit"
+                                    class="btn btn-custom w-100"
+                                >
+                                    <i class="fa fa-arrow-right"></i> Ambil
+                                    Manga
                                 </button>
                             </form>
                         </div>
-
-                        <div
-                            class="tab-pane fade"
-                            id="search-form"
-                            role="tabpanel"
-                            aria-labelledby="search-tab"
-                        >
-                            <h4 class="text-center mb-4">Cari Manga</h4>
+                    </div>
+                </div>
+                <!-- Card 2: Cari Manga -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Cari Manga</h4>
+                        </div>
+                        <div class="card-body">
                             <form id="searchForm">
                                 <div class="mb-3">
                                     <input
                                         type="text"
                                         id="searchInput"
                                         class="form-control form-control-lg text-center"
-                                        placeholder="Cari Manga Judul..."
+                                        placeholder="Cari Manga..."
                                         required
                                     />
                                 </div>
-                                <button type="submit" class="btn btn-custom w-100">
+                                <!-- Tombol Cari (Search) -->
+                                <button
+                                    type="submit"
+                                    class="btn btn-custom w-100"
+                                >
                                     <i class="fa fa-search"></i> Cari
                                 </button>
                             </form>
@@ -196,6 +136,7 @@
                 </div>
             </div>
 
+            <!-- Garis Pemisah yang akan muncul saat ada hasil pencarian -->
             <hr class="separator" />
         </div>
 
@@ -204,15 +145,15 @@
         <script>
             $(document).ready(function () {
                 $("#searchForm").on("submit", function (e) {
-                    e.preventDefault(); // Prevent default form submission
+                    e.preventDefault(); // Mencegah submit form default
 
                     const query = $("#searchInput").val().trim();
                     const searchResults = $("#searchResults");
                     const separator = $(".separator");
 
-                    searchResults.empty(); // Clear old content
-                    // searchResults.hide(); // No longer needed due to tab display
-                    separator.hide(); // Hide separator initially
+                    searchResults.empty(); // Hapus konten lama
+                    searchResults.hide(); // Sembunyikan sementara
+                    separator.hide(); // Sembunyikan separator
 
                     if (query.length > 0) {
                         $.ajax({
@@ -220,12 +161,15 @@
                             method: "GET",
                             success: function (data) {
                                 if (data.results && data.results.length > 0) {
-                                    data.results.forEach((item) => {
+                                    data.results.forEach(item => {
+                                        // Pastikan item.latestChapter.text tidak undefined atau null sebelum menggunakan match()
                                         const chapterMatch =
-                                            item.latestChapter?.text?.match(/\d+/);
+                                            item.latestChapter?.text?.match(
+                                                /\d+/
+                                            );
                                         const chapterNumber = chapterMatch
                                             ? chapterMatch[0]
-                                            : "N/A";
+                                            : "N/A"; // Default ke "N/A" jika tidak ada angka
 
                                         const resultItem = `
                                 <div class="card mb-3" style="max-width: 540px;">
@@ -247,16 +191,19 @@
                                                 }</p>
                                                 <div class="btn-container">
                                                     <button class="btn btn-custom" onclick="window.location.href='/read?url=${encodeURIComponent(
-                                                        item.startChapter?.url || ""
+                                                        item.startChapter
+                                                            ?.url || ""
                                                     )}'">
                                                         <i class="fa fa-book"></i> Chapter 1
                                                     </button>
                                                     <button class="btn btn-custom" onclick="window.location.href='/read?url=${encodeURIComponent(
-                                                        item.latestChapter?.url || ""
+                                                        item.latestChapter
+                                                            ?.url || ""
                                                     )}'">
                                                         <i class="fa fa-arrow-up"></i> Chapter ${chapterNumber}
                                                     </button>
                                                 </div>
+                                                <!-- Tombol 'List Chapter' -->
                                                 <button class="btn btn-custom w-100 mt-2" onclick="window.location.href='/details?url=${encodeURIComponent(
                                                     item.mangaUrl
                                                 )}'">
@@ -270,23 +217,23 @@
                                         searchResults.append(resultItem);
                                     });
 
-                                    searchResults.show(); // Show results
-                                    separator.show(); // Show separator
+                                    searchResults.show(); // Tampilkan hasil
+                                    separator.show(); // Tampilkan separator
                                 } else {
                                     searchResults.html(
                                         "<p class='text-center'>Tidak ada hasil ditemukan.</p>"
                                     );
-                                    searchResults.show(); // Show message
-                                    separator.show(); // Show separator
+                                    searchResults.show(); // Tampilkan pesan
+                                    separator.show(); // Tampilkan separator
                                 }
                             },
                             error: function () {
                                 searchResults.html(
                                     "<p class='text-center text-danger'>Gagal memuat hasil pencarian.</p>"
                                 );
-                                searchResults.show(); // Show error message
-                                separator.show(); // Show separator
-                            },
+                                searchResults.show(); // Tampilkan pesan error
+                                separator.show(); // Tampilkan separator
+                            }
                         });
                     }
                 });
