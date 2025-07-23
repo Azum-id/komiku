@@ -16,280 +16,619 @@
             body {
                 background-color: #121212;
                 color: white;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             }
             .container {
-                max-width: 900px;
-                margin-top: 50px;
-            }
-            .card {
-                background-color: #1f1f1f;
-                border: 1px solid #333;
-                border-radius: 8px;
-                color: white;
-            }
-            .card-header {
-                background-color: #2a2a2a;
-                border-bottom: 1px solid #333;
+                max-width: 600px;
+                margin-top: 20px;
                 padding: 15px;
             }
-            .card-body h5 {
-                font-size: 18px;
-                font-weight: bold;
-                color: white;
-            }
-            .card-body p {
-                font-size: 14px;
-                color: #ccc;
-            }
-            .card img {
-                height: 100%;
-                object-fit: cover;
-            }
-            .btn-custom {
-                background-color: #333;
-                border: none;
-                color: white;
-                font-size: 14px;
-                border-radius: 4px;
-                transition: 0.3s;
-                width: 48%; /* Adjust for button groups */
-            }
-            .btn-custom:hover {
-                background-color: #555;
-            }
-            .btn-container {
+            
+            /* Tab Navigation */
+            .tab-nav {
                 display: flex;
-                justify-content: space-between;
-                gap: 10px;
-                margin-top: 10px;
+                background-color: #1f1f1f;
+                border-radius: 12px;
+                padding: 4px;
+                margin-bottom: 20px;
+                border: 1px solid #333;
             }
-            #searchResults {
-                margin-top: 20px;
-                max-height: 500px;
-                overflow-y: auto;
-                /* display: none; */ /* Handled by Bootstrap tabs */
+            .tab-btn {
+                flex: 1;
+                background: transparent;
+                border: none;
+                color: #ccc;
+                padding: 12px 16px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
             }
-            .separator {
-                margin-top: 20px;
-                border-top: 1px solid #333;
-                display: none; /* Sembunyikan separator sampai ada hasil */
+            .tab-btn.active {
+                background-color: #333;
+                color: white;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             }
-            .nav-tabs {
-                border-bottom: 1px solid #333;
+            .tab-btn:not(.active):hover {
+                background-color: #2a2a2a;
+                color: #fff;
+            }
+            
+            /* Tab Content */
+            .tab-content {
+                display: none;
+            }
+            .tab-content.active {
+                display: block;
+                animation: fadeInUp 0.4s ease;
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Form Card */
+            .form-card {
+                background-color: #1f1f1f;
+                border: 1px solid #333;
+                border-radius: 12px;
+                padding: 24px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+            
+            .form-title {
+                font-size: 20px;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 20px;
+                color: white;
+            }
+            
+            /* Input Group with Paste/Clear Button */
+            .input-group-custom {
+                position: relative;
                 margin-bottom: 20px;
             }
-            .nav-tabs .nav-link {
+            
+            .form-control-custom {
+                background-color: #2a2a2a;
+                border: 1px solid #444;
+                border-radius: 10px;
+                color: white;
+                font-size: 16px;
+                padding: 14px 50px 14px 16px;
+                width: 100%;
+                transition: all 0.3s ease;
+            }
+            
+            .form-control-custom:focus {
+                outline: none;
+                border-color: #555;
+                background-color: #333;
+                box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+            }
+            
+            .form-control-custom::placeholder {
+                color: #888;
+            }
+            
+            .paste-clear-btn {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: #333;
+                border: 1px solid #555;
+                border-radius: 6px;
                 color: #ccc;
-                border: 1px solid transparent;
-                border-top-left-radius: 0.25rem;
-                border-top-right-radius: 0.25rem;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 14px;
             }
-            .nav-tabs .nav-link:hover {
-                border-color: #eee #eee #333;
-                background-color: #2a2a2a;
+            
+            .paste-clear-btn:hover {
+                background: #444;
+                color: white;
+                transform: translateY(-50%) scale(1.05);
+            }
+            
+            .paste-clear-btn:active {
+                transform: translateY(-50%) scale(0.95);
+            }
+            
+            /* Submit Button */
+            .btn-submit {
+                background: linear-gradient(135deg, #333, #444);
+                border: 1px solid #555;
+                border-radius: 10px;
+                color: white;
+                font-size: 16px;
+                font-weight: 600;
+                padding: 14px;
+                width: 100%;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .btn-submit:hover {
+                background: linear-gradient(135deg, #444, #555);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                 color: white;
             }
-            .nav-tabs .nav-link.active {
-                color: white;
+            
+            .btn-submit:active {
+                transform: translateY(0);
+            }
+            
+            /* Search Results */
+            #searchResults {
+                margin-top: 24px;
+                max-height: 70vh;
+                overflow-y: auto;
+                display: none;
+            }
+            
+            .result-card {
                 background-color: #1f1f1f;
-                border-color: #333 #333 #1f1f1f;
-            }
-            .tab-content {
-                padding-top: 10px;
-            }
-            .form-control-lg {
-                background-color: #2a2a2a;
                 border: 1px solid #333;
-                color: white;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                overflow: hidden;
+                transition: all 0.3s ease;
             }
-            .form-control-lg::placeholder {
-                color: #999;
+            
+            .result-card:hover {
+                border-color: #555;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            }
+            
+            .result-content {
+                display: flex;
+                gap: 16px;
+                padding: 16px;
+            }
+            
+            .result-image {
+                width: 80px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 8px;
+                flex-shrink: 0;
+            }
+            
+            .result-info {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .result-title {
+                font-size: 16px;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 8px;
+                line-height: 1.3;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .result-desc {
+                font-size: 13px;
+                color: #ccc;
+                margin-bottom: 12px;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .result-buttons {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            
+            .result-btn {
+                background-color: #333;
+                border: 1px solid #555;
+                color: white;
+                padding: 6px 12px;
+                font-size: 12px;
+                border-radius: 6px;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                transition: all 0.3s ease;
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .result-btn:hover {
+                background-color: #444;
+                color: white;
+                transform: scale(1.02);
+            }
+            
+            .result-btn-full {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .separator {
+                margin: 24px 0;
+                border-top: 1px solid #333;
+                display: none;
+            }
+            
+            /* Loading State */
+            .loading {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                color: #ccc;
+                gap: 10px;
+            }
+            
+            .spinner {
+                width: 16px;
+                height: 16px;
+                border: 2px solid #333;
+                border-top: 2px solid #ccc;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            /* Mobile Optimizations */
+            @media (max-width: 576px) {
+                .container {
+                    margin-top: 10px;
+                    padding: 10px;
+                }
+                
+                .form-card {
+                    padding: 20px;
+                }
+                
+                .form-title {
+                    font-size: 18px;
+                    margin-bottom: 16px;
+                }
+                
+                .tab-btn {
+                    padding: 10px 12px;
+                    font-size: 13px;
+                }
+                
+                .form-control-custom {
+                    font-size: 16px; /* Prevent zoom on iOS */
+                    padding: 12px 45px 12px 14px;
+                }
+                
+                .btn-submit {
+                    font-size: 15px;
+                    padding: 12px;
+                }
+                
+                .result-content {
+                    gap: 12px;
+                    padding: 12px;
+                }
+                
+                .result-image {
+                    width: 70px;
+                    height: 90px;
+                }
+                
+                .result-title {
+                    font-size: 15px;
+                }
+                
+                .result-desc {
+                    font-size: 12px;
+                }
+                
+                .result-btn {
+                    padding: 5px 8px;
+                    font-size: 11px;
+                }
+                
+                #searchResults {
+                    max-height: 60vh;
+                }
+            }
+            
+            /* Extra small devices */
+            @media (max-width: 480px) {
+                .result-buttons {
+                    flex-direction: column;
+                    gap: 6px;
+                }
+                
+                .result-btn {
+                    flex: none;
+                }
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <h1 class="text-center mb-5 fw-bold">Scraper Manga Komiku</h1>
-
-            <div class="card p-0">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button
-                                class="nav-link active"
-                                id="url-tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#url-form"
-                                type="button"
-                                role="tab"
-                                aria-controls="url-form"
-                                aria-selected="true"
-                            >
-                                <i class="fa fa-link"></i> By URL
+            <h1 class="text-center mb-4 fw-bold">Scraper Manga Komiku</h1>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="url-tab">
+                    <i class="fas fa-link"></i>
+                    <span>By URL</span>
+                </button>
+                <button class="tab-btn" data-tab="search-tab">
+                    <i class="fas fa-search"></i>
+                    <span>By Name</span>
+                </button>
+            </div>
+            
+            <!-- URL Tab Content -->
+            <div id="url-tab" class="tab-content active">
+                <div class="form-card">
+                    <h4 class="form-title">Masukkan URL Chapter</h4>
+                    <form method="GET" action="/read">
+                        <div class="input-group-custom">
+                            <input
+                                type="text"
+                                name="url"
+                                id="urlInput"
+                                class="form-control-custom"
+                                placeholder="Paste URL chapter manga di sini..."
+                                required
+                            />
+                            <button type="button" class="paste-clear-btn" id="urlPasteBtn">
+                                <i class="fas fa-paste"></i>
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button
-                                class="nav-link"
-                                id="search-tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#search-form"
-                                type="button"
-                                role="tab"
-                                aria-controls="search-form"
-                                aria-selected="false"
-                            >
-                                <i class="fa fa-search"></i> By Name
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content" id="myTabContent">
-                        <div
-                            class="tab-pane fade show active"
-                            id="url-form"
-                            role="tabpanel"
-                            aria-labelledby="url-tab"
-                        >
-                            <h4 class="text-center mb-4">Masukkan URL Chapter</h4>
-                            <form method="GET" action="/read">
-                                <div class="mb-3">
-                                    <input
-                                        type="text"
-                                        name="url"
-                                        class="form-control form-control-lg text-center"
-                                        placeholder="E.g., https://komiku.org/ch/..."
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" class="btn btn-custom w-100">
-                                    <i class="fa fa-arrow-right"></i> Ambil Manga
-                                </button>
-                            </form>
                         </div>
-
-                        <div
-                            class="tab-pane fade"
-                            id="search-form"
-                            role="tabpanel"
-                            aria-labelledby="search-tab"
-                        >
-                            <h4 class="text-center mb-4">Cari Manga</h4>
-                            <form id="searchForm">
-                                <div class="mb-3">
-                                    <input
-                                        type="text"
-                                        id="searchInput"
-                                        class="form-control form-control-lg text-center"
-                                        placeholder="Cari Manga Judul..."
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" class="btn btn-custom w-100">
-                                    <i class="fa fa-search"></i> Cari
-                                </button>
-                            </form>
-                            <div id="searchResults" class="mt-3"></div>
-                        </div>
-                    </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-arrow-right"></i>
+                            Ambil Manga
+                        </button>
+                    </form>
                 </div>
             </div>
-
+            
+            <!-- Search Tab Content -->
+            <div id="search-tab" class="tab-content">
+                <div class="form-card">
+                    <h4 class="form-title">Cari Manga</h4>
+                    <form id="searchForm">
+                        <div class="input-group-custom">
+                            <input
+                                type="text"
+                                id="searchInput"
+                                class="form-control-custom"
+                                placeholder="Ketik nama manga yang ingin dicari..."
+                                required
+                            />
+                            <button type="button" class="paste-clear-btn" id="searchPasteBtn">
+                                <i class="fas fa-paste"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-search"></i>
+                            Cari Manga
+                        </button>
+                    </form>
+                    <div id="searchResults"></div>
+                </div>
+            </div>
+            
+            <!-- Separator -->
             <hr class="separator" />
         </div>
-
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function () {
+                // Tab switching functionality
+                $('.tab-btn').on('click', function() {
+                    const targetTab = $(this).data('tab');
+                    
+                    // Remove active class from all tabs and content
+                    $('.tab-btn').removeClass('active');
+                    $('.tab-content').removeClass('active');
+                    
+                    // Add active class to clicked tab and corresponding content
+                    $(this).addClass('active');
+                    $('#' + targetTab).addClass('active');
+                });
+                
+                // Paste/Clear functionality for URL input
+                const urlInput = $('#urlInput');
+                const urlPasteBtn = $('#urlPasteBtn');
+                
+                function updateUrlButton() {
+                    if (urlInput.val().trim()) {
+                        urlPasteBtn.html('<i class="fas fa-times"></i>');
+                        urlPasteBtn.attr('title', 'Clear');
+                    } else {
+                        urlPasteBtn.html('<i class="fas fa-paste"></i>');
+                        urlPasteBtn.attr('title', 'Paste');
+                    }
+                }
+                
+                urlInput.on('input', updateUrlButton);
+                
+                urlPasteBtn.on('click', async function() {
+                    if (urlInput.val().trim()) {
+                        // Clear input
+                        urlInput.val('').focus();
+                        updateUrlButton();
+                    } else {
+                        // Paste from clipboard
+                        try {
+                            const text = await navigator.clipboard.readText();
+                            urlInput.val(text).focus();
+                            updateUrlButton();
+                        } catch (err) {
+                            // Fallback for browsers that don't support clipboard API
+                            urlInput.focus();
+                            document.execCommand('paste');
+                            setTimeout(updateUrlButton, 100);
+                        }
+                    }
+                });
+                
+                // Paste/Clear functionality for search input
+                const searchInput = $('#searchInput');
+                const searchPasteBtn = $('#searchPasteBtn');
+                
+                function updateSearchButton() {
+                    if (searchInput.val().trim()) {
+                        searchPasteBtn.html('<i class="fas fa-times"></i>');
+                        searchPasteBtn.attr('title', 'Clear');
+                    } else {
+                        searchPasteBtn.html('<i class="fas fa-paste"></i>');
+                        searchPasteBtn.attr('title', 'Paste');
+                    }
+                }
+                
+                searchInput.on('input', updateSearchButton);
+                
+                searchPasteBtn.on('click', async function() {
+                    if (searchInput.val().trim()) {
+                        // Clear input
+                        searchInput.val('').focus();
+                        updateSearchButton();
+                        // Clear search results
+                        $('#searchResults').hide().empty();
+                        $('.separator').hide();
+                    } else {
+                        // Paste from clipboard
+                        try {
+                            const text = await navigator.clipboard.readText();
+                            searchInput.val(text).focus();
+                            updateSearchButton();
+                        } catch (err) {
+                            // Fallback for browsers that don't support clipboard API
+                            searchInput.focus();
+                            document.execCommand('paste');
+                            setTimeout(updateSearchButton, 100);
+                        }
+                    }
+                });
+                
+                // Search form submission
                 $("#searchForm").on("submit", function (e) {
-                    e.preventDefault(); // Prevent default form submission
-
-                    const query = $("#searchInput").val().trim();
+                    e.preventDefault();
+                    
+                    const query = searchInput.val().trim();
                     const searchResults = $("#searchResults");
                     const separator = $(".separator");
-
-                    searchResults.empty(); // Clear old content
-                    // searchResults.hide(); // No longer needed due to tab display
-                    separator.hide(); // Hide separator initially
-
-                    if (query.length > 0) {
-                        $.ajax({
-                            url: `/search?query=${encodeURIComponent(query)}`,
-                            method: "GET",
-                            success: function (data) {
-                                if (data.results && data.results.length > 0) {
-                                    data.results.forEach((item) => {
-                                        const chapterMatch =
-                                            item.latestChapter?.text?.match(/\d+/);
-                                        const chapterNumber = chapterMatch
-                                            ? chapterMatch[0]
-                                            : "N/A";
-
-                                        const resultItem = `
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="${
-                                                item.coverImage
-                                            }" class="img-fluid rounded-start" alt="${
-                                                item.title
-                                            }">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${
-                                                    item.title
-                                                }</h5>
-                                                <p class="card-text">${
-                                                    item.description
-                                                }</p>
-                                                <div class="btn-container">
-                                                    <button class="btn btn-custom" onclick="window.location.href='/read?url=${encodeURIComponent(
-                                                        item.startChapter?.url || ""
-                                                    )}'">
-                                                        <i class="fa fa-book"></i> Chapter 1
-                                                    </button>
-                                                    <button class="btn btn-custom" onclick="window.location.href='/read?url=${encodeURIComponent(
-                                                        item.latestChapter?.url || ""
-                                                    )}'">
-                                                        <i class="fa fa-arrow-up"></i> Chapter ${chapterNumber}
-                                                    </button>
+                    
+                    if (query.length === 0) return;
+                    
+                    // Show loading state
+                    searchResults.html(`
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <span>Mencari manga...</span>
+                        </div>
+                    `).show();
+                    separator.show();
+                    
+                    $.ajax({
+                        url: `/search?query=${encodeURIComponent(query)}`,
+                        method: "GET",
+                        success: function (data) {
+                            searchResults.empty();
+                            
+                            if (data.results && data.results.length > 0) {
+                                data.results.forEach(item => {
+                                    const chapterMatch = item.latestChapter?.text?.match(/\d+/);
+                                    const chapterNumber = chapterMatch ? chapterMatch[0] : "N/A";
+                                    
+                                    const resultItem = `
+                                        <div class="result-card">
+                                            <div class="result-content">
+                                                <img src="${item.coverImage}" class="result-image" alt="${item.title}" loading="lazy">
+                                                <div class="result-info">
+                                                    <h5 class="result-title">${item.title}</h5>
+                                                    <p class="result-desc">${item.description}</p>
+                                                    <div class="result-buttons">
+                                                        <a href="/read?url=${encodeURIComponent(item.startChapter?.url || '')}" class="result-btn">
+                                                            <i class="fas fa-book"></i> Ch. 1
+                                                        </a>
+                                                        <a href="/read?url=${encodeURIComponent(item.latestChapter?.url || '')}" class="result-btn">
+                                                            <i class="fas fa-arrow-up"></i> Ch. ${chapterNumber}
+                                                        </a>
+                                                    </div>
+                                                    <a href="/details?url=${encodeURIComponent(item.mangaUrl)}" class="result-btn result-btn-full">
+                                                        <i class="fas fa-list"></i> List Chapter
+                                                    </a>
                                                 </div>
-                                                <button class="btn btn-custom w-100 mt-2" onclick="window.location.href='/details?url=${encodeURIComponent(
-                                                    item.mangaUrl
-                                                )}'">
-                                                    <i class="fa fa-list"></i> List Chapter
-                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    searchResults.append(resultItem);
+                                });
+                            } else {
+                                searchResults.html(`
+                                    <div class="result-card">
+                                        <div class="result-content">
+                                            <div class="result-info" style="text-align: center;">
+                                                <h5 class="result-title">Tidak ada hasil ditemukan</h5>
+                                                <p class="result-desc">Coba gunakan kata kunci yang berbeda</p>
                                             </div>
                                         </div>
                                     </div>
+                                `);
+                            }
+                        },
+                        error: function () {
+                            searchResults.html(`
+                                <div class="result-card">
+                                    <div class="result-content">
+                                        <div class="result-info" style="text-align: center;">
+                                            <h5 class="result-title" style="color: #ff6b6b;">Gagal memuat hasil</h5>
+                                            <p class="result-desc">Terjadi kesalahan saat mencari manga. Silakan coba lagi.</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            `;
-                                        searchResults.append(resultItem);
-                                    });
-
-                                    searchResults.show(); // Show results
-                                    separator.show(); // Show separator
-                                } else {
-                                    searchResults.html(
-                                        "<p class='text-center'>Tidak ada hasil ditemukan.</p>"
-                                    );
-                                    searchResults.show(); // Show message
-                                    separator.show(); // Show separator
-                                }
-                            },
-                            error: function () {
-                                searchResults.html(
-                                    "<p class='text-center text-danger'>Gagal memuat hasil pencarian.</p>"
-                                );
-                                searchResults.show(); // Show error message
-                                separator.show(); // Show separator
-                            },
-                        });
-                    }
+                            `);
+                        }
+                    });
                 });
+                
+                // Initialize button states
+                updateUrlButton();
+                updateSearchButton();
             });
         </script>
     </body>
